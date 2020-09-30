@@ -23,7 +23,6 @@ namespace Task_3
                 catch (FormatException)
                 {
                     Console.WriteLine("Ви ввели некоректне значення!");
-                    continue;
                 }
             }
             while (true)
@@ -37,7 +36,6 @@ namespace Task_3
                 catch (FormatException)
                 {
                     Console.WriteLine("Ви ввели некоректне значення!");
-                    continue;
                 }
             }
             while (true)
@@ -51,7 +49,6 @@ namespace Task_3
                 catch (FormatException)
                 {
                     Console.WriteLine("Ви ввели некоректне значення!");
-                    continue;
                 }
             }
             Console.WriteLine($"a = {a}; b = {b}; с = {c}");
