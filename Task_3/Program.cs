@@ -17,11 +17,10 @@ namespace Task_3
                 try
                 {
                     Console.WriteLine("введіть змінну типу int: ");
-                    int a1 = Convert.ToInt32(Console.ReadLine());
-                    a = a + a1;
+                    a = Convert.ToInt32(Console.ReadLine());
                     break;
                 }
-                catch
+                catch (FormatException)
                 {
                     Console.WriteLine("Ви ввели некоректне значення!");
                     continue;
@@ -32,11 +31,10 @@ namespace Task_3
                 try
                 {
                     Console.WriteLine("введіть змінну типу double: ");
-                    double b1 = Convert.ToDouble(Console.ReadLine());
-                    b = b + b1;
+                    b = Convert.ToDouble(Console.ReadLine());
                     break;
                 }
-                catch
+                catch (FormatException)
                 {
                     Console.WriteLine("Ви ввели некоректне значення!");
                     continue;
@@ -47,11 +45,10 @@ namespace Task_3
                 try
                 {
                     Console.WriteLine("введіть змінну типу long: ");
-                    long c1 = Convert.ToInt64(Console.ReadLine());
-                    c = c + c1;
+                    c = Convert.ToInt64(Console.ReadLine());
                     break;
                 }
-                catch
+                catch (FormatException)
                 {
                     Console.WriteLine("Ви ввели некоректне значення!");
                     continue;

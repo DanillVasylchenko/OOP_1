@@ -6,14 +6,18 @@ namespace Task_2
     {
         static void Main(string[] args)
         {
+            string s;
             Console.WriteLine("Введіть число типу int: ");
-            int a = Convert.ToInt32(Console.ReadLine());
+            s = Console.ReadLine();
+            int a = Convert.ToInt32(s);
             Console.WriteLine("Введіть число типу double: ");
-            double b = Convert.ToDouble(Console.ReadLine());
+            s = Console.ReadLine();
+            double b = Convert.ToDouble(s);
             Console.WriteLine("Введіит число типу long: ");
-            long c = Convert.ToInt64(Console.ReadLine());
+            s = Console.ReadLine();
+            long c = Convert.ToInt64(s);
 
-            Console.WriteLine("a = {a}; b = {b}; c = {c}");
+            Console.WriteLine($"a = {a}; b = {b}; c = {c}");
 
 
         }
