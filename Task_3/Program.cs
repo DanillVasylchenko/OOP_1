@@ -23,6 +23,7 @@ namespace Task_3
                 catch (FormatException)
                 {
                     Console.WriteLine("Ви ввели некоректне значення!");
+
                 }
             }
             while (true)
@@ -31,6 +32,7 @@ namespace Task_3
                 {
                     Console.WriteLine("введіть змінну типу double: ");
                     b = Convert.ToDouble(Console.ReadLine());
+
                     break;
                 }
                 catch (FormatException)
