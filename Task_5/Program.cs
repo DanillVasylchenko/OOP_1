@@ -17,8 +17,8 @@ namespace Task_5
                 }
                 catch (FormatException)
                 {
-
-                    Console.WriteLine($"Некоректні дані у файлі! {arr[i]} - не можна конвертувати у double!");
+                    Console.WriteLine($"Некоректні дані у файлі");
+                    Environment.Exit(0);
                 }
             }
             return arr;
@@ -39,7 +39,7 @@ namespace Task_5
         {
             for (int i = 0; i < x.Length; i++)
             {
-                z[i] = x[i] + y[i] / 2;
+                z[i] = y[i] - x[i];
             }
             return z;
         }
@@ -47,6 +47,7 @@ namespace Task_5
         static void Main(string[] args)
         {
             string path_to_x = @"D:\OOP_1\Task_5\files\x.txt";
+
             double[] x = FileReading(path_to_x);
             Console.WriteLine("Масив файлу х.txt: ");
             Console.WriteLine(string.Join('|', x));
@@ -56,6 +57,7 @@ namespace Task_5
             Console.WriteLine(string.Join('|', x));
 
             string path_to_y = @"D:\OOP_1\Task_5\files\y.txt";
+
             double[] y = FileReading(path_to_y);
             Console.WriteLine("Масив файлу у.txt: ");
             Console.WriteLine(string.Join('|', y));
