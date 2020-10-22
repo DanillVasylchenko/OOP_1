@@ -23,49 +23,52 @@ namespace Task_5
             }
             return arr;
         }
-        private static double[] obrobka_x(double[] arr)
+        private static void obrobka_x(ref double[] x)
         {
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < x.Length; i++)
             {
-                if (arr[i] < 0)
+                if (x[i] < 0)
                 {
-                    arr[i] = arr[i] * (-1);
+                    x[i] = x[i] * (-1);
                 }
-
             }
-            return arr;
         }
-        private static double[] obrobka_z(double[] x, double[] y, double[] z)
+        private static void obrobka_z(double[] x, double[] y, ref double[] z)
         {
             for (int i = 0; i < x.Length; i++)
             {
                 z[i] = y[i] - x[i];
             }
-            return z;
+
         }
         
         static void Main(string[] args)
         {
-            string path_to_x = @"D:\OOP_1\Task_5\files\x.txt";
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            string path_to_x = @"files\x.txt";
 
             double[] x = FileReading(path_to_x);
+
             Console.WriteLine("Масив файлу х.txt: ");
             Console.WriteLine(string.Join('|', x));
 
-            x = obrobka_x(x);
+            obrobka_x(ref x);
             Console.WriteLine("Оброблений масив файлу х.txt: ");
             Console.WriteLine(string.Join('|', x));
 
-            string path_to_y = @"D:\OOP_1\Task_5\files\y.txt";
+            string path_to_y = @"files\y.txt";
 
             double[] y = FileReading(path_to_y);
+
             Console.WriteLine("Масив файлу у.txt: ");
             Console.WriteLine(string.Join('|', y));
 
             double[] z = new double[x.Length];
-            double[] new_z = obrobka_z(x, y, z);
+
+            obrobka_z(x, y, ref z);
             Console.WriteLine("Масив z: ");
-            Console.WriteLine(string.Join('|', new_z));
+            Console.WriteLine(string.Join('|', z));
         }
     }
 }
