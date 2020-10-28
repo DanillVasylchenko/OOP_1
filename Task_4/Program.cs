@@ -5,8 +5,8 @@ namespace Task_4
 {
     class Times
     {
-        private uint time;
-        public uint Time
+        private TimeSpan time;
+        public TimeSpan Time
         {
             get
             {
@@ -17,37 +17,39 @@ namespace Task_4
                 time = value;
             }
         }
-        public uint CorrectnessCheck(string time)
+        public TimeSpan TimePointCreator(string hours = "0", string minutes = "0", string seconds = "0")
         {
-            try
+            string[] arr_str = { hours, minutes, seconds };
+            for (int i = 0; i < arr_str.Length; i++)
             {
-                Time = Convert.ToUInt32(time);
+                try
+                {
+                    Convert.ToUInt32(arr_str[i]);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine($"Некоректні дані у файлі");
+                    Environment.Exit(0);
+                }
             }
-            catch (FormatException)
-            {
-                Console.WriteLine("Некоректні дані!");
-            }
+            Time = new TimeSpan(Convert.ToInt32(hours), Convert.ToInt32(minutes), Convert.ToInt32(seconds));
             return Time;
-        }
-        public TimeSpan TimePointCreator(int hours, int minutes, int seconds)
-        {
-            TimeSpan timespan = new TimeSpan(hours, minutes, seconds);
-            return timespan;
         }
         public TimeSpan TimeSubtraction(TimeSpan timespan_1, TimeSpan timespan_2)
         {
-            TimeSpan subtraction_reslt = timespan_1 - timespan_2;
-            return subtraction_reslt;
+            return timespan_1 - timespan_2;
         }
         public TimeSpan TimeAddition(TimeSpan timespan_1, TimeSpan timespan_2)
         {
-            TimeSpan addition_reslt = timespan_1 + timespan_2;
-            return addition_reslt;
+            return timespan_1 + timespan_2;
         }
-        public TimeSpan ConverterToSeconds(int timespan)
+        public double ConverterToSeconds(TimeSpan timespan)
         {
-            var converted_1 = TimeSpan.Parse(timespan).TotalSeconds;
-            return converted_1;
+            return timespan.TotalSeconds;
+        }
+        public TimeSpan ConverterToFullTime(TimeSpan timespan)
+        {
+            return timespan;
         }
     }
     class Program
@@ -57,14 +59,43 @@ namespace Task_4
             System.Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             Console.WriteLine("Введіть першу часову точку: ");
-            var timespan1 = TimeSpan.FromSeconds(60);
-            Console.WriteLine("Введіть другу часову точку: ");
-            var timespan2 = TimeSpan.FromSeconds(60);
+            Console.WriteLine(" ");
+
+            Console.WriteLine("Введіть години: ");
+            string hours = Console.ReadLine();
+            Console.WriteLine("Введіть хвилини: ");
+            string minutes = Console.ReadLine();
+            Console.WriteLine("Введіть секунди: ");
+            string seconds = Console.ReadLine();
 
             Times times = new Times();
+            TimeSpan timespan_1 = times.TimePointCreator(hours, minutes, seconds);
 
-            Console.WriteLine(times.TimeAddition(timespan1, timespan2));
+            Console.WriteLine("Введіть другу часову точку: ");
+            Console.WriteLine(" ");
 
+            Console.WriteLine("Введіть години: ");
+            string hours_2 = Console.ReadLine();
+            Console.WriteLine("Введіть хвилини: ");
+            string minutes_2 = Console.ReadLine();
+            Console.WriteLine("Введіть секунди: ");
+            string seconds_2 = Console.ReadLine();
+
+            Console.WriteLine("Введіть часову точку лише у секундах: ");
+
+            string seconds_only = Console.ReadLine();
+            TimeSpan timespan_sec = times.TimePointCreator(seconds: seconds_only);
+
+            TimeSpan timespan_2 = times.TimePointCreator(hours_2, minutes_2, seconds_2);
+
+            Console.WriteLine($"Ваші часові точки: \n{timespan_1}\n{timespan_2}");
+
+            Console.WriteLine($"Результат додавання часових точок: {times.TimeAddition(timespan_1, timespan_2)}");
+            Console.WriteLine($"Результат віднімання часових точок: {times.TimeSubtraction(timespan_1, timespan_2)}");
+            Console.WriteLine($"Результат переведення часу першої точки у секундний формат: {times.ConverterToSeconds(timespan_1)}");
+            Console.WriteLine($"Результат переведення часу другої точки у секундний формат: {times.ConverterToSeconds(timespan_2)}");
+
+            Console.WriteLine($"Результат переведення часу точки у секундний формат{times.ConverterToFullTime(timespan_sec)}");
         }
     }
 }
