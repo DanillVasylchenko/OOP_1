@@ -46,7 +46,7 @@ namespace Task_5
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            string path_to_x = @"files\x.txt";
+            string path_to_x = @"..\..\..\files\x.txt";
 
             double[] x = FileReading(path_to_x);
 
@@ -57,7 +57,7 @@ namespace Task_5
             Console.WriteLine("Оброблений масив файлу х.txt: ");
             Console.WriteLine(string.Join('|', x));
 
-            string path_to_y = @"files\y.txt";
+            string path_to_y = @"..\..\..\files\y.txt";
 
             double[] y = FileReading(path_to_y);
 
