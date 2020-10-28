@@ -1,73 +1,70 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Task_4
 {
-    class Time
+    class Times
     {
-        private int hours;
-        private int minutes;
-        private int seconds;
-
-        public Time()
+        private uint time;
+        public uint Time
         {
-            this.hours = DateTime.Now.Hour;
-            this.minutes = DateTime.Now.Minute;
-            this.seconds = DateTime.Now.Second;
-        }
-        public Time(int d, int m)
-        {
-            if ((1 <= m && m <= 12) && (1 <= d && d <= 30))
+            get
             {
-                this.hours = DateTime.Now.Hour;
-                this.minutes = m;
-                this.seconds = d;
+                return time;
             }
-            else { Console.WriteLine("Неверная дата."); }
-        }
-        public Time(int d, int m, int y)
-        {
-            if ((1 <= m && m <= 12) && (1 <= d && d <= 30))
+            set
             {
-                this.hours = y;
-                this.minutes = m;
-                this.seconds = d;
+                time = value;
             }
-            else { Console.WriteLine("Неверная дата."); }
         }
-
-        public DateTime GetDate() => new DateTime(seconds, minutes, hours);
-
-        public TimeSpan SubDate(DateTime dateValue1, DateTime dateValue2) => dateValue1.Subtract(dateValue2);
-
-        public double toDays(DateTime dateValue) => dateValue.Day + 30 * (dateValue.Month + 12 * dateValue.Year);
-        public DateTime toDate(double days)
+        public uint CorrectnessCheck(string time)
         {
-            int year = Convert.ToInt32(days / 30 / 12);
-            int month = Convert.ToInt32(days / 30);
-            int day = Convert.ToInt32(days % 30);
-            return new DateTime(day, month, year);
+            try
+            {
+                Time = Convert.ToUInt32(time);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Некоректні дані!");
+            }
+            return Time;
+        }
+        public TimeSpan TimePointCreator(int hours, int minutes, int seconds)
+        {
+            TimeSpan timespan = new TimeSpan(hours, minutes, seconds);
+            return timespan;
+        }
+        public TimeSpan TimeSubtraction(TimeSpan timespan_1, TimeSpan timespan_2)
+        {
+            TimeSpan subtraction_reslt = timespan_1 - timespan_2;
+            return subtraction_reslt;
+        }
+        public TimeSpan TimeAddition(TimeSpan timespan_1, TimeSpan timespan_2)
+        {
+            TimeSpan addition_reslt = timespan_1 + timespan_2;
+            return addition_reslt;
+        }
+        public TimeSpan ConverterToSeconds(int timespan)
+        {
+            var converted_1 = TimeSpan.Parse(timespan).TotalSeconds;
+            return converted_1;
         }
     }
-
-
     class Program
     {
         static void Main(string[] args)
         {
+            System.Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            Time dateClass = new Time(10, 2, 2020);
-            Time dateClass2 = new Time(1, 2, 2020);
-            var date_1 = dateClass.GetDate();
-            var date_2 = dateClass2.GetDate();
-            Console.WriteLine(date_1);
-            Console.WriteLine(date_2);
-            Console.WriteLine(dateClass.SubDate(date_1, date_2));
-            Console.WriteLine(dateClass.SubDate(date_2, date_1));
-            Console.WriteLine(dateClass.toDays(date_1));
-            Console.WriteLine(dateClass.toDate(dateClass.toDays(date_1)));
-            Console.WriteLine(dateClass2.toDays(date_2));
-            Console.WriteLine(dateClass2.toDate(dateClass2.toDays(date_2)));
-            Console.WriteLine();
+            Console.WriteLine("Введіть першу часову точку: ");
+            var timespan1 = TimeSpan.FromSeconds(60);
+            Console.WriteLine("Введіть другу часову точку: ");
+            var timespan2 = TimeSpan.FromSeconds(60);
+
+            Times times = new Times();
+
+            Console.WriteLine(times.TimeAddition(timespan1, timespan2));
+
         }
     }
 }
