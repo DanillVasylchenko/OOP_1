@@ -5,8 +5,8 @@ namespace Task_4
 {
     class Times
     {
-        private TimeSpan time;
-        public TimeSpan Time
+        private int[] time;
+        public int[] Time
         {
             get
             {
@@ -17,14 +17,16 @@ namespace Task_4
                 time = value;
             }
         }
-        public TimeSpan TimePointCreator(string hours = "0", string minutes = "0", string seconds = "0")
+        public int[] TimePointCreator(string hours = "0", string minutes = "0", string seconds = "0")
         {
             string[] arr_str = { hours, minutes, seconds };
+            int[] arr = new int[arr_str.Length];
             for (int i = 0; i < arr_str.Length; i++)
             {
                 try
                 {
                     Convert.ToUInt32(arr_str[i]);
+                    arr[i] = Convert.ToInt32(arr_str[i]);
                 }
                 catch (FormatException)
                 {
@@ -32,24 +34,46 @@ namespace Task_4
                     Environment.Exit(0);
                 }
             }
-            Time = new TimeSpan(Convert.ToInt32(hours), Convert.ToInt32(minutes), Convert.ToInt32(seconds));
+            arr[1] = arr[1] + arr[2] / 60;
+            arr[2] = arr[2] % 60;
+            arr[0] = arr[0] + arr[1] / 60;
+            arr[1] = arr[1] % 60;
+            Time = arr;
             return Time;
         }
-        public TimeSpan TimeSubtraction(TimeSpan timespan_1, TimeSpan timespan_2)
+        public int[] TimeSubtraction(int[] time_1, int[] time_2)
         {
-            return timespan_1 - timespan_2;
+            time_1 = new int[] { time_1[0], time_1[1], time_1[2] };
+            int[] arr = new int[3];
+            for (int i = 2; i >= 0; i--)
+            {
+                arr[i] = time_1[i] - time_2[i];
+                if (arr[i] < 0 & i > 0)
+                {
+                    arr[i] = arr[i] + 60;
+                    --time_1[i - 1];
+                }
+            }
+            return arr;
         }
-        public TimeSpan TimeAddition(TimeSpan timespan_1, TimeSpan timespan_2)
+        public int[] TimeAddition(int[] time_1, int[] time_2)
         {
-            return timespan_1 + timespan_2;
+            time_1 = new int[] {time_1[0], time_1[1], time_1[2] };
+            int[] arr = new int[3];
+            for (int i = 2; i >= 0; i--)
+            {
+                arr[i] = time_1[i] + time_2[i];
+                if (arr[i] >= 60 & i > 0)
+                {
+                    arr[i] = arr[i] - 60;
+                    ++time_1[i - 1];
+                }
+            }
+            return arr;
         }
-        public double ConverterToSeconds(TimeSpan timespan)
+        public int ConverterToSeconds(int[] time)
         {
-            return timespan.TotalSeconds;
-        }
-        public TimeSpan ConverterToFullTime(TimeSpan timespan)
-        {
-            return timespan;
+            return time[0] * 60 * 60 + time[1] * 60 + time[2];
         }
     }
     class Program
@@ -69,10 +93,11 @@ namespace Task_4
             string seconds = Console.ReadLine();
 
             Times times = new Times();
-            TimeSpan timespan_1 = times.TimePointCreator(hours, minutes, seconds);
+            int[] timespan_1 = times.TimePointCreator(hours, minutes, seconds);
 
+            Console.WriteLine("");
             Console.WriteLine("Введіть другу часову точку: ");
-            Console.WriteLine(" ");
+            Console.WriteLine("");
 
             Console.WriteLine("Введіть години: ");
             string hours_2 = Console.ReadLine();
@@ -81,21 +106,24 @@ namespace Task_4
             Console.WriteLine("Введіть секунди: ");
             string seconds_2 = Console.ReadLine();
 
+            int[] timespan_2 = times.TimePointCreator(hours_2, minutes_2, seconds_2);
+
+            Console.WriteLine("");
             Console.WriteLine("Введіть часову точку лише у секундах: ");
+            Console.WriteLine("");
 
             string seconds_only = Console.ReadLine();
-            TimeSpan timespan_sec = times.TimePointCreator(seconds: seconds_only);
+            int[] timespan_sec = times.TimePointCreator(seconds: seconds_only);
+ 
+            Console.WriteLine($"Ваші часові точки: \n1 - {timespan_1[0]}:{timespan_1[1]}:{timespan_1[2]}\n2 - {timespan_2[0]}:{timespan_2[1]}:{timespan_2[2]}");
 
-            TimeSpan timespan_2 = times.TimePointCreator(hours_2, minutes_2, seconds_2);
-
-            Console.WriteLine($"Ваші часові точки: \n{timespan_1}\n{timespan_2}");
-
-            Console.WriteLine($"Результат додавання часових точок: {times.TimeAddition(timespan_1, timespan_2)}");
-            Console.WriteLine($"Результат віднімання часових точок: {times.TimeSubtraction(timespan_1, timespan_2)}");
+            Console.WriteLine($"Результат додавання часових точок: {String.Join(":",times.TimeAddition(timespan_1, timespan_2))}");
+            Console.WriteLine($"Результат віднімання часових точок: {String.Join(":", times.TimeSubtraction(timespan_1, timespan_2))}");
             Console.WriteLine($"Результат переведення часу першої точки у секундний формат: {times.ConverterToSeconds(timespan_1)}");
             Console.WriteLine($"Результат переведення часу другої точки у секундний формат: {times.ConverterToSeconds(timespan_2)}");
 
-            Console.WriteLine($"Результат переведення часу точки у секундний формат{times.ConverterToFullTime(timespan_sec)}");
+            Console.WriteLine($"Результат переведення часу точки з секундного формату у ГОДИНИ:ХВИЛИНИ:СЕКУНДИ - " +
+                $"{timespan_sec[0]}:{timespan_sec[1]}:{timespan_sec[2]}");
         }
     }
 }
