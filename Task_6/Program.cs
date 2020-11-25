@@ -25,7 +25,7 @@ namespace Task_6
                 Environment.Exit(0);
             }
         }
-        public void array_creating_and_output()
+        public void array_creating()
         {
             arr = new int[m][];
             Random random = new Random();
@@ -38,7 +38,6 @@ namespace Task_6
                 {
                     arr[i][j] = random.Next(41);
                 }
-                Console.WriteLine($"{string.Join("  ", arr[i])}\n------------------------------");
             }
         }
         public void key_input()
@@ -55,11 +54,11 @@ namespace Task_6
             }
 
         }
-        public void key_max_element_with_general_output()
+        public void max_element_with_general_output()
         {
             int max_element;
             StringBuilder all_max_index = new StringBuilder();
-            StringBuilder all_key_equals = new StringBuilder();
+            
             for (int i = 0; i < m; i++)
             {
                 max_element = arr[i].Max();
@@ -69,13 +68,24 @@ namespace Task_6
                     {
                         all_max_index.Append($"[{j}] ");
                     }
+                }
+                Console.WriteLine($"{string.Join("  ", arr[i])} | Max_element - {max_element} | indexes: {all_max_index}\n-----------------------------------");
+                all_max_index = new StringBuilder();               
+            }
+
+        }
+        public void key_coordinates_output()
+        {
+            StringBuilder all_key_equals = new StringBuilder();
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
                     if (arr[i][j] == key)
                     {
-                        all_key_equals.Append($"[{i}][{j}]; ");
+                        all_key_equals.Append($"[{i}][{j}] ");
                     }
                 }
-                Console.WriteLine($"{string.Join("  ", arr[i])} | Max_element - {max_element} | indexes: {all_max_index}");
-                all_max_index = new StringBuilder();               
             }
             Console.WriteLine($"\nAll key coordinates: {all_key_equals}");
         }
@@ -87,9 +97,10 @@ namespace Task_6
             massive massive = new massive();
 
             massive.input_and_correct_data_check();
-            massive.array_creating_and_output();
+            massive.array_creating();
+            massive.max_element_with_general_output();
             massive.key_input();
-            massive.key_max_element_with_general_output();
+            massive.key_coordinates_output();
         }
     }
 }
