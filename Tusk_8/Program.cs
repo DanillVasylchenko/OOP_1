@@ -1,88 +1,97 @@
 ﻿using System;
 
-namespace _8
+namespace task_8
 {
     class MyComplex
     {
-        private double _re, _im;
-
+        private double Re, Im;
         public MyComplex(double initRe = 0, double initIm = 0)
         {
-            _re = initRe;
-            _im = initIm;
+            Re = initRe;
+            Im = initIm;
+        }     
+        public static MyComplex operator +(MyComplex a, MyComplex b)
+        {
+            return new MyComplex(a.Re + b.Re, a.Im + b.Im);
         }
-
-        public string this[string key]
+        public static MyComplex operator +(MyComplex a, double b)
+        {
+            return new MyComplex(a.Re + b, a.Im);
+        }
+        public static MyComplex operator +(double b, MyComplex a)
+        {
+            return new MyComplex(a.Re + b, a.Im);
+        }
+        public static MyComplex operator -(MyComplex a)
+        {
+            MyComplex res = new MyComplex();
+            res.Re = -a.Re;
+            res.Im = -a.Im;
+            return new MyComplex(-a.Re, -a.Im);
+        }
+        public static MyComplex operator -(MyComplex a, MyComplex b)
+        {
+            return new MyComplex(a.Re - b.Re, a.Im - b.Im);
+        }
+        public static MyComplex operator -(double b, MyComplex a)
+        {
+            return new MyComplex(a.Re - b, a.Im);
+        }
+        public static MyComplex operator -(MyComplex a, double b)
+        {
+            return new MyComplex(a.Re - b, a.Im);
+        }
+        public static MyComplex operator *(MyComplex a, MyComplex b)
+        {
+            return new MyComplex(a.Re * b.Re, a.Im * b.Im);
+        }
+        public static MyComplex operator *(MyComplex a, double b)
+        {
+            return new MyComplex(a.Re * b, a.Im * b);
+        }
+        public static MyComplex operator *(double b, MyComplex a)
+        {
+            return new MyComplex(a.Re * b, a.Im * b);
+        }
+        public void InputFromTerminal()
+        {
+            Re = CheckNumber("real");
+            Im = CheckNumber("imagine");
+        }
+        private double CheckNumber(string text)
+        {
+            double num = 0;
+            Console.Write($"Enter {text} value: ");
+            string num_for_check = Console.ReadLine();
+            try
+            {
+                num = (Convert.ToInt64(num_for_check));
+            }
+            catch
+            {
+                Console.WriteLine("INVALID DATA!");
+                Environment.Exit(0);
+            }
+            return num;
+        }
+        public override string ToString()
+        {
+            return ($"{this.Re} +/- {this.Im}i");
+        }
+        public double this[string type]
         {
             get
             {
-                switch (key)
+                switch (type)
                 {
-                    case "realValue": return _re.ToString();
-                    case "imaginaryValue": return _im + "i";
-                    default: return null;
+                    case "realValue":
+                        return Re;
+                    default:
+                        return Im;
                 }
             }
-        }
-
-        public static MyComplex operator +(MyComplex a, MyComplex b)
-        {
-            return new MyComplex(a._re + b._re, a._im + b._im);
-        }
-
-        public static MyComplex operator +(MyComplex a, double b)
-        {
-            return new MyComplex(a._re + b, a._im);
-        }
-
-        public static MyComplex operator +(double a, MyComplex b)
-        {
-            return new MyComplex(a + b._re, b._im);
-        }
-
-        public static MyComplex operator -(MyComplex a)
-        {
-            return new MyComplex(-a._re, -a._im);
-        }
-
-        public static MyComplex operator *(MyComplex a, MyComplex B)
-        {
-            return new MyComplex(a._re + B._re, a._im + B._im);
-        }
-
-        public void InputFromTerminal()
-        {
-            _re = TryCatch("реальное");
-            _im = TryCatch("мнимое");
-        }
-
-        private double TryCatch(string text)
-        {
-            while (true)
-            {
-                Console.Write($"Введите {text} число: ");
-                try
-                {
-                    return Convert.ToDouble(Console.ReadLine());
-                }
-                catch (InvalidCastException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-        }
-
-        public override string ToString()
-        {
-            if (_im > 0)
-            {
-                return $"{_re}+{_im}i";
-            }
-
-            return $"{_re}{_im}i";
         }
     }
-
     class Program
     {
         static void Main(string[] args)
