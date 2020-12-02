@@ -24,9 +24,6 @@ namespace task_8
         }
         public static MyComplex operator -(MyComplex a)
         {
-            MyComplex res = new MyComplex();
-            res.Re = -a.Re;
-            res.Im = -a.Im;
             return new MyComplex(-a.Re, -a.Im);
         }
         public static MyComplex operator -(MyComplex a, MyComplex b)

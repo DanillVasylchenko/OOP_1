@@ -71,7 +71,7 @@ namespace task_7
     }
     class Program
     {
-        private static void FileRead(ref int[,] days)
+        private static void ReadingFromFile(ref int[,] days)
         {
             string[] check_replace_arr;
             string[] data_lines = File.ReadAllLines(@"Days.txt");
@@ -96,7 +96,7 @@ namespace task_7
             }
             CorrectNumbersCheck(ref days);
         }
-        private static void ConsoleRead(ref int[,] days, ref string[] words)
+        private static void ReadingFromConsole(ref int[,] days, ref string[] words)
         {
             string[] check_replace_arr;
             Console.WriteLine("Input your values(31 number with ONE GAP between): ");
@@ -158,10 +158,10 @@ namespace task_7
             switch (Console.ReadLine().Length)
             {
                 case 0:
-                    FileRead(ref days);
+                    ReadingFromFile(ref days);
                     break;
                 default:
-                    ConsoleRead(ref days, ref words);
+                    ReadingFromConsole(ref days, ref words);
                     break;
             }
             DaysOutput(days, words);
