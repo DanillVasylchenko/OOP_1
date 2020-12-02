@@ -9,46 +9,67 @@ namespace task_8
         {
             Re = initRe;
             Im = initIm;
-        }     
+        }
         public static MyComplex operator +(MyComplex a, MyComplex b)
         {
-            return new MyComplex(a.Re + b.Re, a.Im + b.Im);
+            MyComplex res = new MyComplex();
+            res.Re = a.Re + b.Re;
+            res.Im = a.Im + b.Im;
+            return res;
         }
         public static MyComplex operator +(MyComplex a, double b)
         {
-            return new MyComplex(a.Re + b, a.Im);
+            MyComplex res = new MyComplex();
+            res.Re = a.Re + b;
+            res.Im = a.Im;
+            return res;
         }
         public static MyComplex operator +(double b, MyComplex a)
         {
-            return new MyComplex(a.Re + b, a.Im);
+            return a + b;
         }
         public static MyComplex operator -(MyComplex a)
         {
-            return new MyComplex(-a.Re, -a.Im);
+            MyComplex res = new MyComplex();
+            res.Re = -a.Re;
+            res.Im = -a.Im;
+            return res;
         }
         public static MyComplex operator -(MyComplex a, MyComplex b)
         {
-            return new MyComplex(a.Re - b.Re, a.Im - b.Im);
-        }
-        public static MyComplex operator -(double b, MyComplex a)
-        {
-            return new MyComplex(a.Re - b, a.Im);
+            MyComplex res = new MyComplex();
+            res.Re = a.Re - b.Re;
+            res.Im = a.Im - b.Im;
+            return res;
         }
         public static MyComplex operator -(MyComplex a, double b)
         {
-            return new MyComplex(a.Re - b, a.Im);
+            MyComplex res = new MyComplex();
+            res.Re = a.Re - b;
+            res.Im = a.Im - b;
+            return res;
         }
+        public static MyComplex operator -(double b, MyComplex a)
+        {
+            return a - b;
+        } 
         public static MyComplex operator *(MyComplex a, MyComplex b)
         {
-            return new MyComplex(a.Re * b.Re, a.Im * b.Im);
+            MyComplex res = new MyComplex();
+            res.Re = a.Re - b.Re;
+            res.Im = a.Im - b.Im;
+            return res;
         }
         public static MyComplex operator *(MyComplex a, double b)
         {
-            return new MyComplex(a.Re * b, a.Im * b);
+            MyComplex res = new MyComplex();
+            res.Re = a.Re * b;
+            res.Im = a.Im * b;
+            return res;
         }
         public static MyComplex operator *(double b, MyComplex a)
         {
-            return new MyComplex(a.Re * b, a.Im * b);
+            return a * b;
         }
         public void InputFromTerminal()
         {
@@ -73,7 +94,15 @@ namespace task_8
         }
         public override string ToString()
         {
-            return ($"{this.Re} +/- {this.Im}i");
+            if (this.Im < 0)
+            {
+                return ($"{this.Re} {this.Im}i");
+            }
+            else
+            {
+                return ($"{this.Re} + {this.Im}i");
+            }
+            
         }
         public double this[string type]
         {
@@ -83,9 +112,12 @@ namespace task_8
                 {
                     case "realValue":
                         return Re;
-                    default:
+                    case "imaginaryValue":
                         return Im;
+                    default:
+                        return 0;
                 }
+                
             }
         }
     }
@@ -98,14 +130,16 @@ namespace task_8
             MyComplex C = new MyComplex(1);
             MyComplex D = new MyComplex();
 
-            C = A + B;
+            D.InputFromTerminal();
+            C = A + D;
+            Console.WriteLine($"C = {C}");
             C = A + 10.5;
+
+            Console.WriteLine($"A = {A}, B = {B}, C = {C}, D = {D}");
             C = 10.5 + A;
             D = -C;
             C = A + B + C + D;
             C = A = B = C;
-
-            D.InputFromTerminal();
 
             Console.WriteLine($"A = {A}, B = {B}, C = {C}, D = {D}");
 
