@@ -6,25 +6,25 @@ namespace task_7
 {
     public enum WeatherType
     {
-        undefined=0,
-        rain=1,
-        short_time_rain=2,
-        thunderstorm=3,
-        snow=4,
-        fog=5,
-        sunny=6,
-        darkly=7
+        undefined = 0,
+        rain = 1,
+        short_time_rain = 2,
+        thunderstorm = 3,
+        snow = 4,
+        fog = 5,
+        sunny = 6,
+        darkly = 7
     }
     class WeatherParametersDay
-    {     
+    {
         public double average_day_temperarure;
         public double average_night_temperature;
         public double average_atmospheric_pressure;
         public double precipitation;
         public WeatherType weather_type;
-        public WeatherParametersDay(double averageTemperatureDay, double averageTemperatureNight, double averageAtmosphericPressure, 
+        public WeatherParametersDay(double averageTemperatureDay, double averageTemperatureNight, double averageAtmosphericPressure,
             double precipitation, int weatherType)
-        {           
+        {
             average_day_temperarure = averageTemperatureDay;
             average_night_temperature = averageTemperatureNight;
             average_atmospheric_pressure = averageAtmosphericPressure;
@@ -35,9 +35,9 @@ namespace task_7
     class WeatherDays
     {
         private WeatherParametersDay[] weather_array;
-        public WeatherDays(WeatherParametersDay[] WeatherArr) 
-        { 
-            weather_array = WeatherArr; 
+        public WeatherDays(WeatherParametersDay[] WeatherArr)
+        {
+            weather_array = WeatherArr;
         }
         public int DarklyDaysCounter(params WeatherType[] weatherType)
         {
@@ -49,7 +49,7 @@ namespace task_7
                 }
             return this_condition_days_counter;
         }
-        public int NoPrecipitationDaysCounter(params WeatherType[] weatherType) 
+        public int NoPrecipitationDaysCounter(params WeatherType[] weatherType)
         {
             int this_condition_days_counter = 0;
             foreach (WeatherParametersDay day in weather_array)
@@ -164,7 +164,7 @@ namespace task_7
                     ConsoleRead(ref days, ref words);
                     break;
             }
-            DaysOutput(days,words);
+            DaysOutput(days, words);
             WeatherParametersDay[] weatherParametersDays = new WeatherParametersDay[days.GetLength(1)];
             for (int i = 0; i < days.GetLength(1); i++)
                 weatherParametersDays[i] = new WeatherParametersDay(days[0, i], days[1, i], days[2, i], days[3, i], (int)days[4, i]);
