@@ -71,6 +71,18 @@ namespace task_7
     }
     class Program
     {
+        private static int[,] CorrectNumbersCheck(ref int[,] days)
+        {
+            for (int i = 0; i < days.GetLength(1); i++)
+            {
+                if (days[4, i] < 0 || days[4, i] > 7 || days[3, i] < 0 || days[2, i] < 0)
+                {
+                    Console.WriteLine("INVALID NUMBERS");
+                    Environment.Exit(0);
+                }
+            }
+            return days;
+        }
         private static void ReadingFromFile(ref int[,] days)
         {
             string[] check_replace_arr;
@@ -123,18 +135,6 @@ namespace task_7
                 }
             }
             CorrectNumbersCheck(ref days);
-        }
-        private static int[,] CorrectNumbersCheck(ref int[,] days)
-        {
-            for (int i = 0; i < days.GetLength(1); i++)
-            {
-                if (days[4, i] < 0 || days[4, i] > 7 || days[3, i] < 0 || days[2, i] < 0)
-                {
-                    Console.WriteLine("INVALID NUMBERS");
-                    Environment.Exit(0);
-                }
-            }
-            return days;
         }
         private static void DaysOutput(int[,] days, string[] words)
         {
