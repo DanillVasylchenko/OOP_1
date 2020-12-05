@@ -16,8 +16,8 @@ namespace Task_9
         public IsEqual ConditionCheck = x => x > 15;
         static public void MyCalculation(int[][] arr, IsEqual func)
         {
-            List<List<int>> full_list = new List<List<int>>();
-            List<int> row_list = new List<int>();
+            List<List<int>> full_list = new List<List<int>> { };
+            List<int> row_list = new List<int> { };
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < n; j++)
@@ -32,7 +32,7 @@ namespace Task_9
                     continue;
                 }
                 full_list.Add(row_list);
-                row_list.Clear();
+                row_list = new List<int> { };
             }
             int full_list_lenght = full_list.Count;
             arr = new int[full_list.Count][];
