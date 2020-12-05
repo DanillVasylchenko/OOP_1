@@ -10,7 +10,7 @@ namespace Task_9
         static uint m;
         static uint n;
         int[][] arr;
-        int key;
+        static int key;
 
         public delegate bool IsEqual(int x);
         public IsEqual ConditionCheck = x => x > 15;
@@ -27,13 +27,25 @@ namespace Task_9
                         row_list.Add(arr[i][j]);
                     }
                 }
-                if (row_list.Count() == 0)
+                if (row_list.Count == 0)
                 {   
                     continue;
                 }
                 full_list.Add(row_list);
+                row_list.Clear();
             }
-            arr = full_list.Select(Enumerable.ToArray).ToArray();
+            int full_list_lenght = full_list.Count;
+            arr = new int[full_list.Count][];
+            for (int i = 0; i < full_list_lenght; i++)
+            {
+                arr[i] = new int[full_list[i].Count];
+                for (int j = 0; j < full_list[i].Count; j++)
+                {
+                    arr[i][j] = full_list[i][j];
+                }
+            }
+            max_element_with_general_output(arr);
+            key_coordinates_output(arr);
         }
         public void input_and_correct_data_check()
         {
@@ -79,7 +91,7 @@ namespace Task_9
                 Environment.Exit(0);
             }
         }
-        public void max_element_with_general_output(int[][] arr)
+        static public void max_element_with_general_output(int[][] arr)
         {
             int max_element;
             StringBuilder all_max_index = new StringBuilder();
@@ -98,7 +110,7 @@ namespace Task_9
                 all_max_index = new StringBuilder();
             }
         }
-        public void key_coordinates_output(int[][] arr)
+        static public void key_coordinates_output(int[][] arr)
         {
             StringBuilder all_key_equals = new StringBuilder();
             for (int i = 0; i < arr.Length; i++)
@@ -126,8 +138,6 @@ namespace Task_9
             massive.key_coordinates_output(array);
 
             massive.MyCalculation(array, massive.ConditionCheck);
-            massive.max_element_with_general_output(array);
-            massive.key_coordinates_output(array);
         }
     }
 }
